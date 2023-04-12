@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
     $recaptcha = json_decode($recaptcha);
 
     try {
-        // if ($recaptcha->score < 0.5) {
-        //     throw new Exception('Low Score');
-        // }
+        if ($recaptcha->score < 0.5) {
+            throw new Exception('Low Score');
+        }
 
         $to = $admin_email;
         $email = $to;
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
         $headers = "MIME-Version: 1.0\r\n" .
             "Content-type: text/html; charset=utf-8\r\n" .
             "From: " . $site . " <" . $no_reply_email . ">" . "\r\n" .
-            // "Bcc: " . $bcc_email . "\r\n" .
+            "Bcc: " . $bcc_email . "\r\n" .
             "Reply-To: " . $site . " <" . $email . ">" . "\r\n" .
             "X-Mailer: PHP/" . phpversion();
 
